@@ -7,7 +7,7 @@
     "polymer","web-components","cookies"
   ],
   "dependencies": {
-    "polymer": "*",
+    "polymer": "Polymer/polymer#^1.0.0",
     "iron-localstorage": "PolymerElements/iron-localstorage"
   }
 }
