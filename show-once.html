@@ -1,25 +1,29 @@
 <link rel="import" href="../iron-localstorage/iron-localstorage.html">
 <link rel="import" href="../polymer/polymer.html">
 <!--
-`<show-once message="Show this once" link="http://open-elemnets.org"></show-once>`
+`<show-once>
+  We are using cookies to give you the best experience on our site. Cookies are files stored in your browser and are used by most websites to help personalise your web experience. <br />By continuing to use our website without changing the settings, you are agreeing to our use of cookies.
+  <a href="https://www.gov.uk/help/cookies">About cookies</a>
+</show-once>`
 @demo demo.html
 -->
 <dom-module id="show-once">
   <template>
     <iron-localstorage name="{{messageHash}}" value="{{showIf}}" on-iron-localstorage-load-empty="show"></iron-localstorage>
     <template is="dom-if" if="{{showIf}}">
-      <div style="position:absolute;z-index:101;top:0;left:0;right:0;background:#fde073;text-align:center;padding:10px;overflow:hidden;-webkit-box-shadow:0 0 5px black;-moz-box-shadow:0 0 5px black;box-shadow:0 0 5px black"><span on-tap="hide" style="float:right;padding:0 10px;">x</span><span style="flex" inner-h-t-m-l="{{message}}"></span> <a href="{{link}}">{{linkText}}</a></div>
+      <div style="position:absolute;z-index:101;top:0;left:0;right:0;background:#fde073;text-align:center;padding:10px;overflow:hidden;-webkit-box-shadow:0 0 5px black;-moz-box-shadow:0 0 5px black;box-shadow:0 0 5px black">
+        <span on-tap="hide" style="float:right;padding:0 10px;">x</span>
+        <content></content>
+      </div>
     </template>
   </template>
 </dom-module>
 <script>
+
   Polymer({
     is: "show-once",
     properties: {
-      message:{type: String, value: "We are using cookies to give you the best experience on our site. Cookies are files stored in your browser and are used by most websites to help personalise your web experience. <br />By continuing to use our website without changing the settings, you are agreeing to our use of cookies."},
-      link:{type: String, value:"https://www.gov.uk/help/cookies"},
-      linkText:{type: String, value:"About cookies"},
-      messageHash: {computed:"hash(message)"},
+      messageHash: {computed:"hash(innerHTML)"},
       showIf: {value:false}
     },
     show: function() {
