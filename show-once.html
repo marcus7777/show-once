@@ -1,5 +1,5 @@
 <link rel="import" href="../iron-localstorage/iron-localstorage.html">
-<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../paper-button/paper-button.html">
 <!--
 `<show-once>
   We are using cookies to give you the best experience on our site. Cookies are files stored in your browser and are used by most websites to help personalise your web experience. <br />By continuing to use our website without changing the settings, you are agreeing to our use of cookies.
@@ -10,12 +10,10 @@
 <dom-module id="show-once">
   <template>
     <iron-localstorage name="{{messageHash}}" value="{{showIf}}" on-iron-localstorage-load-empty="show"></iron-localstorage>
-    <template is="dom-if" if="{{showIf}}">
-      <div style="position:absolute;z-index:101;top:0;left:0;right:0;background:#fde073;text-align:center;padding:10px;overflow:hidden;-webkit-box-shadow:0 0 5px black;-moz-box-shadow:0 0 5px black;box-shadow:0 0 5px black">
-        <span on-tap="hide" style="float:right;padding:0 10px;">x</span>
-        <content></content>
-      </div>
-    </template>
+    <div hidden="{{!showIf}}" style="position:absolute;z-index:101;top:0;left:0;right:0;background:#fde073;text-align:center;padding:10px;overflow:hidden;-webkit-box-shadow:0 0 5px black;-moz-box-shadow:0 0 5px black;box-shadow:0 0 5px black">
+      <paper-button on-tap="hide" style="float:right;padding:0 10px;">x</paper-button>
+      <span id="text"><content></content></span>
+    </div>
   </template>
 </dom-module>
 <script>
@@ -23,7 +21,7 @@
   Polymer({
     is: "show-once",
     properties: {
-      messageHash: {computed:"hash(innerHTML)"},
+      messageHash: {computed:"hash(text)"},
       showIf: {value:false}
     },
     show: function() {
@@ -31,6 +29,9 @@
     },
     hide: function() {
       this.showIf = false
+    },
+    ready: function() {
+      this.text = this.$.text.innerText
     },
     hash: function(message) {
       var hash = 0
