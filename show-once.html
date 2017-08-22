@@ -12,7 +12,7 @@
     <iron-localstorage name="{{messageHash}}" value="{{showIf}}" on-iron-localstorage-load-empty="show"></iron-localstorage>
     <div hidden="{{!showIf}}" style="position:fixed;z-index:101;top:0;left:0;right:0;background:#fde073;text-align:center;padding:10px;overflow:hidden;-webkit-box-shadow:0 0 5px black;-moz-box-shadow:0 0 5px black;box-shadow:0 0 5px black">
       <paper-button on-tap="hide" style="float:right;padding:0 10px;">x</paper-button>
-      <span id="text"><content></content></span>
+      <span id="text"><slot></slot></span>
     </div>
   </template>
 </dom-module>
